@@ -1,0 +1,33 @@
+package main
+
+import "fmt"
+
+type DataStore interface {
+	FindUserNameById(id int)
+}
+
+type Redis struct{}
+
+func (redis *Redis) FindUserNameById(id int) {
+	fmt.Println("查询redis数据库")
+}
+
+type Mongodb struct{}
+
+func (mog *Mongodb) FindUserNameById(id int) {
+	fmt.Println("查询mongodb数据库")
+}
+
+type DataBase interface {
+	CreateDataBase() DataStore
+}
+type CreateRedis struct{}
+
+func (createRedis *CreateRedis) CreateDataBase() DataStore {
+	return &Redis{}
+}
+
+type CreateMongodb struct {}
+func (createMongodb *CreateMongodb) CreateDataBase() DataStore {
+	return &Mongodb{}
+}
